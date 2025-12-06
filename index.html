@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Meteor - Açık Kaynak Deposu</title>
+    <style>
+        /* Tam Ekran Düzeni */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: linear-gradient(to bottom right, #001f4d, #000000);
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            padding: 2rem;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 102, 255, 0.5);
+        }
+
+        /* Başlık Stili */
+        h1 {
+            font-size: 3rem;
+            color: #44AAFF;
+            text-shadow: 0 0 15px #0066FF;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: #AAAAAA;
+            margin-bottom: 2rem;
+        }
+
+        /* Buton Stilleri */
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            min-width: 220px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-download {
+            background: linear-gradient(to bottom, #0099FF, #0055CC);
+            box-shadow: 0 5px 15px rgba(0, 153, 255, 0.4);
+        }
+
+        .btn-upload {
+            background: linear-gradient(to bottom, #2ECC71, #27AE60);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 153, 255, 0.6);
+        }
+
+        /* Kaynak Metin Alanı */
+        #source-text {
+            width: 100%;
+            height: 250px;
+            padding: 10px;
+            border: 2px solid #0066FF;
+            background-color: #0d1a2b;
+            color: #d1e5ff;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.9rem;
+            resize: none;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            text-align: left;
+            overflow-y: auto;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ULTIMATE METEOR</h1>
+        <h2>Açık Kaynak Kod Deposu</h2>
+
+        <p>Aşağıda oyunumuzun kaynak kodunu görebilirsin.</p>
+
+        <textarea id="source-text" readonly>
+ULTIMATE METEOR v2.3 STANDART SÜRÜM - Kaynak Kodu
+
+=== HTML KODU ===
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ULTIMATE METEOR v2.3 STANDART SÜRÜM</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #000;
+            touch-action: manipulation;
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #gameCanvas {
+            display: block;
+            background-color: #000;
+        }
+        #menu {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(ellipse at center, rgba(0,20,50,0.9) 0%, rgba(0,0,0,0.95) 100%);
+            z-index: 100;
+            color: white;
+            text-align: center;
+        }
+        .menu-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #44AAFF;
+            text-shadow: 0 0 10px #0066FF;
+        }
+        .btn {
+            background: linear-gradient(to bottom, #0066FF, #0044CC);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            margin: 1rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            min-width: 200px;
+            cursor: pointer;
+        }
+        #controls {
+            position: absolute;
+            bottom: 2rem;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+        .control-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            font-size: 1.5rem;
+        }
+        #shootBtn {
+            background: rgba(255, 0, 0, 0.3);
+        }
+        #pauseBtn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0, 102, 255, 0.7);
+            color: white;
+            border: none;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            z-index: 50;
+            display: none;
+        }
+        #gameInfo {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            color: white;
+            font-size: 1.2rem;
+            z-index: 50;
+        }
+        #lives, #scoreDisplay {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            border: 1px solid #44AAFF;
+        }
+        .diff-btn {
+            background: rgba(255,255,255,0.1);
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 20px;
+            color: white;
+            border: none;
+        }
+        .diff-btn.active {
+            background: #0066FF;
+        }
+        #difficulty-container {
+            display: flex;
+            margin: 1rem 0;
+        }
+        #language-btn {
+            background: transparent;
+            border: 2px solid #44AAFF;
+            color: #44AAFF;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    
+    <button id="pauseBtn">⏸</button>
+    
+    <div id="gameInfo">
+        <div id="lives">❤️❤️❤️</div>
+        <div id="scoreDisplay">Score: 0</div>
+    </div>
+    
+    <div id="menu">
+        <h1 class="menu-title">ULTIMATE METEOR</h1>
+        
+        <div id="difficulty-container">
+            <button class="diff-btn active" id="easyBtn">EASY</button>
+            <button class="diff-btn" id="normalBtn">NORMAL</button>
+            <button class="diff-btn" id="hardBtn">HARD</button>
+        </div>
+        
+        <button class="btn" id="startBtn">START GAME</button>
+        <button class="btn" id="language-btn">LANGUAGE: ENGLISH</button>
+    </div>
+    
+    <div id="controls">
+        <button class="control-btn" id="leftBtn">←</button>
+        <button class="control-btn" id="shootBtn">🔴</button>
+        <button class="control-btn" id="rightBtn">→</button>
+    </div>
+
+=== JAVASCRIPT KODU ===
+<script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const menu = document.getElementById('menu');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const livesDisplay = document.getElementById('lives');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        
+        function resizeCanvas() {
+            const aspectRatio = 9 / 14;
+            let newWidth, newHeight;
+
+            if (window.innerHeight / window.innerWidth > 1 / aspectRatio) {
+                newWidth = window.innerWidth;
+                newHeight = newWidth / aspectRatio;
+            } else {
+                newHeight = window.innerHeight;
+                newWidth = newHeight * aspectRatio;
+            }
+
+            canvas.width = newWidth;
+            canvas.height = newHeight;
+
+            ship.x = canvas.width / 2;
+            ship.y = canvas.height / 2;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        
+        let gameActive = false;
+        let gamePaused = false;
+        let lives = 3;
+        let score = 0;
+        let language = 'English';
+        let difficulty = 'Easy';
+        
+        const texts = {
+            English: { start: 'START GAME', easy: 'EASY', normal: 'NORMAL', hard: 'HARD', language: 'LANGUAGE: ENGLISH', lives: 'Lives: ', score: 'Score: ', pause: 'PAUSED' },
+            Turkish: { start: 'OYUNU BAŞLAT', easy: 'KOLAY', normal: 'NORMAL', hard: 'ZOR', language: 'DİL: TÜRKÇE', lives: 'Can: ', score: 'Skor: ', pause: 'DURAKLATILDI' }
+        };
+        
+        const ship = {
+            x: 0, y: 0, width: 40, height: 24, speed: 5, color: '#44AAFF', moveLeft: false, moveRight: false
+        };
+        
+        let meteors = [];
+        function createMeteor() {
+            const sizes = { Easy: 22, Normal: 16, Hard: 10 };
+            const speeds = { Easy: 2, Normal: 4, Hard: 7 };
+            return { 
+                x: Math.random() * canvas.width, 
+                y: -30, 
+                size: sizes[difficulty],
+                speed: speeds[difficulty]
+            };
+        }
+        
+        let bullets = [];
+        
+        function drawShip() {
+            ctx.fillStyle = ship.color;
+            ctx.beginPath();
+            ctx.moveTo(ship.x, ship.y - ship.height/2);
+            ctx.lineTo(ship.x - ship.width/2, ship.y + ship.height/2);
+            ctx.lineTo(ship.x + ship.width/2, ship.y + ship.height/2);
+            ctx.closePath();
+            ctx.fill();
+        }
+        
+        function drawMeteors() {
+            ctx.fillStyle = '#FF0000';
+            meteors.forEach(meteor => { ctx.beginPath(); ctx.arc(meteor.x, meteor.y, meteor.size, 0, Math.PI * 2); ctx.fill(); });
+        }
+        
+        function drawBullets() {
+            ctx.fillStyle = '#00FF00';
+            bullets.forEach(bullet => { ctx.fillRect(bullet.x, bullet.y, 5, 15); });
+        }
+        
+        function drawLives() { livesDisplay.textContent = texts[language].lives + '❤️'.repeat(lives); }
+        function drawScore() { scoreDisplay.textContent = texts[language].score + score; }
+        
+        function updateGame() {
+            if (ship.moveLeft && ship.x - ship.width/2 > 0) ship.x -= ship.speed;
+            if (ship.moveRight && ship.x + ship.width/2 < canvas.width) ship.x += ship.speed;
+            
+            meteors.forEach((meteor, index) => {
+                meteor.y += meteor.speed;
+                if (Math.abs(meteor.x - ship.x) < meteor.size + ship.width/2 && Math.abs(meteor.y - ship.y) < meteor.size + ship.height/2) {
+                    meteors.splice(index, 1);
+                    lives--;
+                    drawLives();
+                    if (lives <= 0) endGame();
+                }
+                bullets.forEach((bullet, bIndex) => {
+                    if (Math.abs(meteor.x - bullet.x) < meteor.size + 5 && Math.abs(meteor.y - bullet.y) < meteor.size + 15) {
+                        meteors.splice(index, 1);
+                        bullets.splice(bIndex, 1);
+                        score += 10;
+                        drawScore();
+                    }
+                });
+            });
+            
+            const spawnRates = { Easy: 0.015, Normal: 0.025, Hard: 0.04 };
+            if (Math.random() < spawnRates[difficulty]) meteors.push(createMeteor());
+            
+            bullets.forEach((bullet, index) => { bullet.y -= 10; if (bullet.y < 0) bullets.splice(index, 1); });
+        }
+        
+        function togglePause() {
+            if (!gameActive) return;
+            gamePaused = !gamePaused;
+            pauseBtn.textContent = gamePaused ? "▶" : "⏸";
+        }
+        
+        function endGame() {
+            gameActive = false;
+            gamePaused = false;
+            menu.style.display = 'flex';
+            pauseBtn.style.display = 'none';
+        }
+        
+        function gameLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (gameActive) {
+                if (!gamePaused) {
+                    updateGame();
+                }
+
+                drawMeteors();
+                drawBullets();
+                drawShip();
+
+                if (gamePaused) {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = '#44AAFF';
+                    ctx.font = '30px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(texts[language].pause, canvas.width/2, canvas.height/2);
+                    ctx.textAlign = 'left';
+                }
+            }
+            requestAnimationFrame(gameLoop);
+        }
+        
+        document.getElementById('leftBtn').addEventListener('touchstart', () => ship.moveLeft = true);
+        document.getElementById('leftBtn').addEventListener('touchend', () => ship.moveLeft = false);
+        document.getElementById('rightBtn').addEventListener('touchstart', () => ship.moveRight = true);
+        document.getElementById('rightBtn').addEventListener('touchend', () => ship.moveRight = false);
+        document.getElementById('shootBtn').addEventListener('click', () => { if (gameActive && !gamePaused) bullets.push({x: ship.x, y: ship.y - 30}); });
+        pauseBtn.addEventListener('click', togglePause);
+        
+        document.querySelectorAll('.diff-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                difficulty = this.id.replace('Btn', '').charAt(0).toUpperCase() + this.id.slice(1).replace('Btn', '');
+                document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        document.getElementById('language-btn').addEventListener('click', () => { language = language === 'English' ? 'Turkish' : 'English'; updateUI(); });
+        
+        function updateUI() {
+            const lang = texts[language];
+            document.getElementById('startBtn').textContent = lang.start;
+            document.getElementById('easyBtn').textContent = lang.easy;
+            document.getElementById('normalBtn').textContent = lang.normal;
+            document.getElementById('hardBtn').textContent = lang.hard;
+            document.getElementById('language-btn').textContent = lang.language;
+            drawLives();
+            drawScore();
+        }
+        
+        document.getElementById('startBtn').addEventListener('click', () => {
+            gameActive = true;
+            gamePaused = false;
+            score = 0;
+            lives = 3;
+            meteors = [];
+            bullets = [];
+            menu.style.display = 'none';
+            pauseBtn.style.display = 'block';
+            pauseBtn.textContent = '⏸';
+            resizeCanvas();
+            updateUI();
+        });
+        
+        resizeCanvas();
+        updateUI();
+        gameLoop();
+    </script>
+</body>
+</html>
+
+=== DOSYA BİLGİSİ ===
+Oyun Adı: Ultimate Meteor v2.3 Standart Sürüm
+Dil: HTML5, CSS3, JavaScript
+Platform: Web (Mobil Uyumlu)
+Lisans: Açık Kaynak
+        </textarea>
+
+        <div class="btn-group">
+            <a href="#" class="btn btn-download" id="download-btn" download="standartkaynak.txt">
+                Kaynak Kodu İNDİR (.TXT)
+            </a>
+            
+            <button class="btn btn-upload" id="upload-btn">
+                Kaynak Kodu KOPYALA
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        const sourceTextArea = document.getElementById('source-text');
+        const uploadBtn = document.getElementById('upload-btn');
+        const downloadBtn = document.getElementById('download-btn');
+
+        // İndirme butonunu hazırla (sayfa yüklendiğinde)
+        window.addEventListener('DOMContentLoaded', () => {
+            // Textarea'daki metni al
+            const textContent = sourceTextArea.value;
+            
+            // TXT dosyası oluştur
+            const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
+            
+            // İndirme linkini ayarla
+            downloadBtn.href = URL.createObjectURL(blob);
+            downloadBtn.download = 'kaynak.txt';
+        });
+
+        // Kopyala butonuna tıklandığında
+        uploadBtn.addEventListener('click', () => {
+            // Textarea'daki kodu seç
+            sourceTextArea.select();
+            sourceTextArea.setSelectionRange(0, 99999); // Mobil için
+
+            try {
+                // Clipboard API ile kopyala
+                navigator.clipboard.writeText(sourceTextArea.value)
+                    .then(() => {
+                        uploadBtn.textContent = "✓ KOPYALANDI!";
+                        uploadBtn.style.background = "linear-gradient(to bottom, #4CAF50, #45a049)";
+                        
+                        // 2 saniye sonra eski haline döndür
+                        setTimeout(() => {
+                            uploadBtn.textContent = "Kaynak Kodu KOPYALA";
+                            uploadBtn.style.background = "linear-gradient(to bottom, #2ECC71, #27AE60)";
+                        }, 2000);
+                    })
+                    .catch(err => {
+                        // Fallback: eski yöntemle kopyalama
+                        document.execCommand('copy');
+                        alert('Kaynak kodu panoya kopyalandı!');
+                    });
+            } catch (err) {
+                // En eski fallback
+                document.execCommand('copy');
+                alert('Kaynak kodu panoya kopyalandı!');
+            }
+        });
+
+        // Textarea'ya tıklandığında otomatik seç
+        sourceTextArea.addEventListener('click', function() {
+            this.select();
+        });
+    </script>
+</body>
+</html>
